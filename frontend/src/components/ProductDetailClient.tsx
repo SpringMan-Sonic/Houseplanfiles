@@ -253,8 +253,14 @@ const VideoModal = ({
   );
 };
 
-const DetailPage = () => {
-  const { slug } = useParams<{ slug: string }>();
+interface ProductDetailClientProps {
+  slug?: string;
+  initialProduct?: any;
+}
+
+const DetailPage = ({ slug: slugProp, initialProduct }: ProductDetailClientProps = {}) => {
+  const params = useParams<{ slug: string }>();
+  const slug = slugProp || params?.slug;
   const pathname = usePathname();
   const dispatch: AppDispatch = useDispatch();
 
@@ -290,9 +296,10 @@ const DetailPage = () => {
         ? singlePlan
         : professionalPlans.find((p) => p._id === productIdFromSlug);
     }
-    return singleProduct?._id === productIdFromSlug
+    const fromRedux = singleProduct?._id === productIdFromSlug
       ? singleProduct
       : adminProducts.find((p) => p._id === productIdFromSlug);
+    return fromRedux || initialProduct || null;
   }, [
     isProfessionalPlan,
     singleProduct,
@@ -300,6 +307,7 @@ const DetailPage = () => {
     adminProducts,
     professionalPlans,
     productIdFromSlug,
+    initialProduct,
   ]);
 
   if (listStatus === "loading" || listStatus === "idle") {
