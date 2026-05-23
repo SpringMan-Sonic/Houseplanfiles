@@ -41,7 +41,7 @@ const app = express();
 // ✅ CORS FIXED — only this part changed
 app.use(
   cors({
-    origin: ["https://www.houseplanfiles.com","http://localhost:3000", "http://localhost:8080"],
+    origin: ["https://www.houseplanfiles.com","https://houseplanfiles.vercel.app","http://localhost:3000", "http://localhost:8080"],
     credentials: true,
   })
 );
