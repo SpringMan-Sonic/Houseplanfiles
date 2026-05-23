@@ -24,8 +24,13 @@ import { Label } from "@/components/ui/label";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const ResetPasswordPage = () => {
-  const { token } = useParams<{ token: string }>();
+interface ResetPasswordPageClientProps {
+  token?: string;
+}
+
+const ResetPasswordPage = ({ token: tokenProp }: ResetPasswordPageClientProps = {}) => {
+  const params = useParams<{ token: string }>();
+  const token = tokenProp || params?.token;
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
 

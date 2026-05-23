@@ -295,8 +295,13 @@ const ProductCard = ({
 };
 
 // --- 4. MAIN PAGE ---
-const SellerStorePage: FC = () => {
-  const { sellerId } = useParams();
+interface SellerStorePageClientProps {
+  sellerId?: string;
+}
+
+const SellerStorePage: FC<SellerStorePageClientProps> = ({ sellerId: sellerIdProp } = {}) => {
+  const params = useParams();
+  const sellerId = sellerIdProp || params?.sellerId;
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
 

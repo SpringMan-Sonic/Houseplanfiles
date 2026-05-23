@@ -21,8 +21,13 @@ import { toast } from "sonner";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import DisplayPrice from "@/components/DisplayPrice";
 
-const OrderSuccessPage = () => {
-  const { orderId } = useParams();
+interface OrderSuccessPageClientProps {
+  orderId?: string;
+}
+
+const OrderSuccessPage = ({ orderId: orderIdProp }: OrderSuccessPageClientProps = {}) => {
+  const params = useParams();
+  const orderId = orderIdProp || params?.orderId;
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

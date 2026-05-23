@@ -39,8 +39,13 @@ import {
 import { toast } from "sonner";
 
 
-const ArchitectProfilePage = () => {
-  const { id } = useParams();
+interface ArchitectProfilePageClientProps {
+  architectId?: string;
+}
+
+const ArchitectProfilePage = ({ architectId }: ArchitectProfilePageClientProps = {}) => {
+  const params = useParams();
+  const id = architectId || params?.id;
   const router = useRouter();
   const [architect, setArchitect] = useState<any>(null);
   const [loading, setLoading] = useState(true);

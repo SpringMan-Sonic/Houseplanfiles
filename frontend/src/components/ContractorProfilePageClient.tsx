@@ -37,8 +37,13 @@ import {
 import { toast } from "sonner";
 
 
-const ContractorProfilePage = () => {
-  const { id } = useParams();
+interface ContractorProfilePageClientProps {
+  contractorId?: string;
+}
+
+const ContractorProfilePage = ({ contractorId }: ContractorProfilePageClientProps = {}) => {
+  const params = useParams();
+  const id = contractorId || params?.id;
   const router = useRouter();
   const [contractor, setContractor] = useState<any>(null);
   const [loading, setLoading] = useState(true);
