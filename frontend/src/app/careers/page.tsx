@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import CareersPageClient from "@/components/CareersPageClient";
 export const metadata: Metadata = {
   title: "Careers | Join HousePlanFiles | Architecture & Tech Jobs India",
