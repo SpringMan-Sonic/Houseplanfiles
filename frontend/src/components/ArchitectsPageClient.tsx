@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState, useEffect, useMemo, FC, FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/lib/store";
-import { fetchArchitects } from "@/lib/features/users/userSlice.tsx";
+import { fetchArchitects } from "@/lib/features/users/userSlice";
 import { createInquiry, resetActionStatus } from "@/lib/features/inquiries/inquirySlice";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
