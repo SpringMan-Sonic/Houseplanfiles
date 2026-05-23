@@ -4,7 +4,13 @@ import CountUp from "react-countup";
 import { motion } from "@/components/MotionWrapper";
 
 // Yeh component ek number ko 0 se end tak animate karega
-const AnimatedStat = ({ end, suffix, label }) => {
+interface AnimatedStatProps {
+  end: number;
+  suffix?: string;
+  label: string;
+}
+
+const AnimatedStat = ({ end, suffix, label }: AnimatedStatProps) => {
   return (
     <motion.div
       className="text-center group cursor-pointer"

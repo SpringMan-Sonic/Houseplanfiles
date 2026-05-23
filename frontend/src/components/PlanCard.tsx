@@ -4,7 +4,19 @@ import { motion } from "@/components/MotionWrapper";
 import { Star, Heart, Share2 } from "lucide-react";
 import DisplayPrice from "./DisplayPrice";
 
-const PlanCard = ({ plan }) => {
+interface PlanCardProps {
+  plan: {
+    image: string;
+    title: string;
+    rating: number | string;
+    specs: string;
+    price: number;
+    reviews: number | string;
+    id?: string;
+  };
+}
+
+const PlanCard = ({ plan }: PlanCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

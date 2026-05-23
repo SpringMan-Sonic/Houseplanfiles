@@ -5,7 +5,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { MapPin, Briefcase, Star } from "lucide-react";
 
-const ProfessionalCard = ({ professional }) => {
+interface ProfessionalCardProps {
+  professional: {
+    name?: string;
+    businessName?: string;
+    role?: string;
+    materialType?: string;
+    experience?: string;
+    photoUrl?: string;
+    city?: string;
+    email?: string;
+  };
+}
+
+const ProfessionalCard = ({ professional }: ProfessionalCardProps) => {
   // User ke role ke anusaar details dikhayein
   const displayName = professional.name || professional.businessName;
   const detail1 =
