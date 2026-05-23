@@ -56,7 +56,7 @@ const BlogSidebar: React.FC = () => {
 
   // Get unique categories from all products
   const uniqueCategories = useMemo(() => {
-    const categories = combinedProducts.map((p) => p.category).filter(Boolean);
+    const categories = combinedProducts.map((p) => p.category).filter((c): c is string => typeof c === "string");
     return [...new Set(categories)].sort();
   }, [combinedProducts]);
 
@@ -91,12 +91,12 @@ const BlogSidebar: React.FC = () => {
                 (
                   category // Show top 5 categories
                 ) => (
-                  <li key={category}>
+                  <li key={String(category)}>
                     <Link
-                      href={`/products?category=${encodeURIComponent(category) || "/house-plans"}`}
+                      href={`/house-plans?category=${encodeURIComponent(String(category))}`}
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      {category}
+                      {String(category)}
                     </Link>
                   </li>
                 )
