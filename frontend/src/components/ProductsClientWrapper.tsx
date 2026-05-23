@@ -9,6 +9,7 @@ interface ProductsClientWrapperProps {
   region?: string;
   headerSlot?: React.ReactNode;
   showFooter?: boolean;
+  hideNavbar?: boolean;
 }
 
 export default function ProductsClientWrapper({
@@ -17,6 +18,7 @@ export default function ProductsClientWrapper({
   region,
   headerSlot,
   showFooter = true,
+  hideNavbar,
 }: ProductsClientWrapperProps) {
   const router = useRouter();
   const pathname = usePathname();
