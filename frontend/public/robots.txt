@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Block private/functional pages from indexing
+Disallow: /admin/
+Disallow: /admin
+Disallow: /cart
+Disallow: /checkout
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /seller/
+Disallow: /seller
+Disallow: /professional/
+Disallow: /professional
+Disallow: /forgot-password
+Disallow: /reset-password/
+Disallow: /order-success/
+Disallow: /download
+Disallow: /thank-you
+
+Sitemap: https://www.houseplanfiles.com/sitemap.xml

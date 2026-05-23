@@ -1,0 +1,379 @@
+"use client";
+
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "@/components/MotionWrapper";
+import { toast } from "sonner";
+import {
+  Loader2, ServerCrash, Search, Package, ChevronLeft, ChevronRight,
+  X, MapPin, Store, Filter, Phone, MessageCircle, Check, ChevronsUpDown,
+} from "lucide-react";
+import { RootState, AppDispatch } from "@/lib/store";
+import { fetchPublicSellerProducts } from "@/lib/features/seller/sellerProductSlice";
+import { createInquiry, resetActionStatus } from "@/lib/features/sellerinquiries/sellerinquirySlice";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from "@/components/ui/select";
+import {
+  Popover, PopoverContent, PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+
+// --- Inquiry Modal ---
+const InquiryModal = ({ product, onClose }: { product: any; onClose: () => void }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { actionStatus, error } = useSelector((state: RootState) => state.sellerInquiries);
+  const { userInfo } = useSelector((state: RootState) => state.user);
+
+  const [formData, setFormData] = useState({
+    name: userInfo?.name || "",
+    email: userInfo?.email || "",
+    phone: userInfo?.phone || "",
+    message: `I am interested in your product: "${product.name}". Please provide more details.`,
+  });
+
+  useEffect(() => {
+    if (actionStatus === "succeeded") {
+      toast.success("Inquiry sent successfully!");
+      dispatch(resetActionStatus());
+      onClose();
+    }
+    if (actionStatus === "failed") {
+      toast.error(String(error || "Failed to send inquiry."));
+      dispatch(resetActionStatus());
+    }
+  }, [actionStatus, error, dispatch, onClose]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(createInquiry({ ...formData, productId: product._id }));
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/60 z-[999] flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        className="bg-white rounded-lg shadow-xl w-full max-w-md relative"
+      >
+        <button onClick={onClose} className="absolute top-3 right-3 text-gray-400 hover:text-gray-700">
+          <X size={24} />
+        </button>
+        <div className="p-8">
+          <h2 className="text-2xl font-bold text-gray-800">Send Inquiry</h2>
+          <p className="text-gray-500 mt-1">
+            For: <span className="font-semibold">{product.name}</span>
+          </p>
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            <div>
+              <Label htmlFor="name">Full Name</Label>
+              <Input id="name" value={formData.name} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" value={formData.email} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label htmlFor="phone">Phone</Label>
+              <Input id="phone" type="tel" value={formData.phone} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label htmlFor="message">Message</Label>
+              <Textarea id="message" value={formData.message} onChange={handleChange} required rows={4} />
+            </div>
+            <Button type="submit" disabled={actionStatus === "loading"} className="w-full bg-orange-600 hover:bg-orange-700">
+              {actionStatus === "loading" ? <Loader2 className="animate-spin" /> : "Send Inquiry"}
+            </Button>
+          </form>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+// --- Product Card ---
+const ProductCard = ({ product, onInquiryClick, isMobile = false }: any) => (
+  <div className={`bg-white rounded-xl flex flex-col group transition-all duration-300 border border-gray-100 hover:border-orange-500 hover:shadow-xl hover:-translate-y-1 ${isMobile ? "w-full p-2 shadow-sm" : "w-80 flex-shrink-0 snap-start p-4 shadow-md"}`}>
+    <div className="relative overflow-hidden rounded-lg bg-gray-100">
+      <img
+        src={product.image || "/floorplan.jpg"}
+        alt={product.name}
+        className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${isMobile ? "h-32" : "h-48"}`}
+        loading="lazy"
+      />
+      <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] sm:text-xs font-semibold text-gray-700 flex items-center gap-1 shadow-sm">
+        <MapPin size={10} className="text-orange-500" /> {product.city}
+      </div>
+    </div>
+    <div className={`flex flex-col flex-grow ${isMobile ? "pt-2" : "pt-3"}`}>
+      <p className="text-orange-600 font-bold uppercase tracking-wider text-[10px] sm:text-xs mb-1">{product.category}</p>
+      <h3 className={`font-bold text-gray-900 leading-tight mb-1 ${isMobile ? "text-xs line-clamp-2 h-8" : "text-lg truncate"}`}>{product.name}</h3>
+      <div className="flex items-center gap-2 mt-auto pt-2 border-t border-gray-50">
+        <div className="flex flex-col">
+          <span className="text-[10px] text-gray-400">Seller</span>
+          <span className="text-xs sm:text-sm font-medium text-gray-700 truncate max-w-[100px]">{product.seller?.businessName || "Verified"}</span>
+        </div>
+        <div className="ml-auto font-extrabold text-gray-900 text-sm sm:text-lg">₹{product.price?.toLocaleString()}</div>
+      </div>
+      {product.seller?.contractorType === "Premium" ? (
+        <div className="grid grid-cols-2 gap-2 mt-3">
+          <Button onClick={(e) => { e.stopPropagation(); window.open(`https://wa.me/91${product.seller.phone}?text=${encodeURIComponent(`Hi ${product.seller.businessName}, I am interested in: "${product.name}".`)}`, "_blank"); }} className={`w-full bg-[#25D366] hover:bg-[#128C7E] text-white p-0 rounded-lg font-bold flex items-center justify-center ${isMobile ? "h-8 text-[10px]" : "h-10 text-xs"}`}>
+            <MessageCircle size={14} className="mr-1" /> WhatsApp
+          </Button>
+          <Button onClick={(e) => { e.stopPropagation(); window.location.href = `tel:${product.seller.phone}`; }} className={`w-full bg-blue-600 hover:bg-blue-700 text-white p-0 rounded-lg font-bold flex items-center justify-center ${isMobile ? "h-8 text-[10px]" : "h-10 text-xs"}`}>
+            <Phone size={14} className="mr-1" /> Call Now
+          </Button>
+        </div>
+      ) : (
+        <Button onClick={() => onInquiryClick(product)} className={`w-full bg-gray-900 hover:bg-orange-600 text-white mt-3 ${isMobile ? "h-8 text-xs" : "h-10 text-sm"}`}>
+          Send Inquiry
+        </Button>
+      )}
+    </div>
+  </div>
+);
+
+// --- Shop Card ---
+const ShopCard = ({ seller, productCount, products, isMobile = false }: any) => {
+  const router = useRouter();
+  const displayImage = products[0]?.image || "/floorplan.jpg";
+  return (
+    <div
+      onClick={() => router.push(`/seller-shop/${seller._id}`)}
+      className={`group bg-white rounded-xl flex flex-col transition-all duration-300 border border-gray-100 hover:border-orange-500 hover:shadow-xl hover:-translate-y-1 cursor-pointer overflow-hidden ${isMobile ? "w-full p-2 shadow-sm" : "w-80 flex-shrink-0 snap-start p-4 shadow-md"}`}
+    >
+      <div className={`relative overflow-hidden rounded-lg bg-gray-100 ${isMobile ? "h-32" : "h-48"}`}>
+        <img src={displayImage} alt={seller.businessName} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
+        <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] sm:text-xs font-semibold text-gray-700 flex items-center gap-1 shadow-sm z-10">
+          <MapPin size={10} className="text-orange-500" /> {products[0]?.city || "India"}
+        </div>
+        <div className="absolute bottom-2 left-2 bg-orange-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold shadow-lg z-10 flex items-center gap-1.5">
+          <Package size={12} /> {productCount} Items
+        </div>
+      </div>
+      <div className={`flex flex-col flex-grow ${isMobile ? "pt-2" : "pt-3"}`}>
+        <h3 className={`font-extrabold text-gray-900 leading-tight mb-1 uppercase group-hover:text-orange-600 transition-colors ${isMobile ? "text-xs truncate" : "text-lg truncate"}`}>{seller.businessName || "Verified Shop"}</h3>
+        <p className={`text-gray-500 mb-2 sm:mb-4 line-clamp-1 ${isMobile ? "text-[10px]" : "text-xs"}`}>Explore collection of {products[0]?.category} and more.</p>
+        <div className="mt-auto pt-2 sm:pt-4 border-t border-gray-50 flex flex-col gap-2">
+          {seller.contractorType === "Premium" ? (
+            <div className="grid grid-cols-2 gap-2">
+              <Button onClick={(e) => { e.stopPropagation(); window.open(`https://wa.me/91${seller.phone}?text=${encodeURIComponent(`Hi ${seller.businessName}, I saw your shop on Houseplans Marketplace.`)}`, "_blank"); }} className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white h-10 sm:h-11 rounded-lg text-xs sm:text-sm font-bold flex items-center justify-center p-0">
+                <MessageCircle size={14} className="mr-1 sm:mr-2" /> WhatsApp
+              </Button>
+              <Button onClick={(e) => { e.stopPropagation(); window.location.href = `tel:${seller.phone}`; }} className="w-full bg-blue-600 hover:bg-blue-700 text-white h-10 sm:h-11 rounded-lg text-xs sm:text-sm font-bold flex items-center justify-center p-0">
+                <Phone size={14} className="mr-1 sm:mr-2" /> Call Now
+              </Button>
+            </div>
+          ) : (
+            <Button className={`w-full bg-gray-900 hover:bg-orange-600 text-white rounded-lg font-bold ${isMobile ? "h-8 text-xs" : "h-10 sm:h-11 text-sm"}`}>
+              Visit Store <Store size={14} className="ml-1 sm:ml-2" />
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- Main SellersSection ---
+const SellersSection = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+  const { products, status, error } = useSelector((state: RootState) => state.sellerProducts);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCity, setSelectedCity] = useState("all-cities");
+  const [cityPopoverOpen, setCityPopoverOpen] = useState(false);
+  const [citySearchTerm, setCitySearchTerm] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [mobilePage, setMobilePage] = useState(1);
+  const mobileItemsPerPage = 4;
+
+  useEffect(() => {
+    dispatch(fetchPublicSellerProducts({ limit: 50 }));
+  }, [dispatch]);
+
+  const uniqueCategories = useMemo(() => ["All", ...Array.from(new Set(products.map((p: any) => p.category).filter(Boolean))).sort()], [products]);
+
+  const uniqueCities = useMemo(() => {
+    const cities = new Set<string>();
+    products.forEach((p: any) => {
+      if (p.city) cities.add(p.city.trim());
+      if (p.seller?.city) cities.add(p.seller.city.trim());
+    });
+    return ["All Cities", ...Array.from(cities).sort((a, b) => a.localeCompare(b))];
+  }, [products]);
+
+  const displayItems = useMemo(() => {
+    let items: any[] = products;
+    if (selectedCategory !== "All") items = items.filter((p: any) => p.category === selectedCategory);
+    if (selectedCity !== "all-cities") items = items.filter((p: any) => p.city === selectedCity);
+    if (searchTerm) {
+      const lower = searchTerm.toLowerCase();
+      items = items.filter((p: any) => p.name.toLowerCase().includes(lower) || p.seller?.businessName?.toLowerCase().includes(lower));
+    }
+
+    const itemsList: any[] = [];
+    const premiumShopsMap = new Map();
+    items.forEach((p: any) => {
+      if (!p.seller) return;
+      const isPremium = p.seller.contractorType === "Premium" || p.seller.role === "Premium";
+      if (isPremium) {
+        const sellerId = p.seller._id;
+        if (!premiumShopsMap.has(sellerId)) premiumShopsMap.set(sellerId, { type: "shop", seller: p.seller, products: [], id: "shop_" + sellerId });
+        premiumShopsMap.get(sellerId).products.push(p);
+      } else {
+        itemsList.push({ type: "product", product: p, id: "prod_" + p._id });
+      }
+    });
+    return [...Array.from(premiumShopsMap.values()), ...itemsList];
+  }, [products, searchTerm, selectedCategory, selectedCity]);
+
+  const totalMobilePages = Math.ceil(displayItems.length / mobileItemsPerPage);
+  const currentMobileItems = displayItems.slice((mobilePage - 1) * mobileItemsPerPage, mobilePage * mobileItemsPerPage);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: direction === "left" ? -344 : 344, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <>
+      <div className="bg-gray-50 pb-16">
+        {/* Hero Banner */}
+        <div className="relative py-16 sm:py-24 overflow-hidden">
+          <div className="absolute inset-0">
+            <img src="/marketplace.png" alt="Marketplace" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-gray-900/30" />
+          </div>
+          <div className="relative max-w-7xl mx-auto px-4 text-center z-10">
+            <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4 drop-shadow-md">Marketplace</h2>
+            <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-light">Find the best construction materials & sellers in one place.</p>
+            <div className="flex justify-center">
+              <Button onClick={() => router.push("/register")} className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-6 px-8 rounded-full shadow-lg hover:shadow-orange-500/20 transition-all transform hover:-translate-y-1 text-lg flex items-center gap-2">
+                <Store className="w-5 h-5" /> Register Your Shop
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Filters */}
+          <div className="relative -mt-16 z-20 bg-white rounded-xl shadow-xl border border-gray-100 p-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+              <div className="md:col-span-2">
+                <Label className="text-xs font-bold text-gray-500 uppercase mb-2 block tracking-wide">Search</Label>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Input placeholder="Search products..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-11 h-12 bg-gray-50 border-gray-200 focus:bg-white text-base" />
+                </div>
+              </div>
+              <div>
+                <Label className="text-xs font-bold text-gray-500 uppercase mb-2 block tracking-wide">Category</Label>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="h-12 bg-gray-50 text-sm focus:bg-white border-gray-200"><SelectValue /></SelectTrigger>
+                  <SelectContent>{uniqueCategories.map((c: string) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label className="text-xs font-bold text-gray-500 uppercase mb-2 block tracking-wide">City</Label>
+                <Popover open={cityPopoverOpen} onOpenChange={setCityPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" role="combobox" aria-expanded={cityPopoverOpen} className="h-12 w-full justify-between bg-gray-50 text-sm border-gray-200 font-normal">
+                      {selectedCity === "all-cities" ? "All Cities" : selectedCity}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-72 p-0 z-[100]" align="start">
+                    <div className="flex items-center border-b px-3 bg-white">
+                      <Search className="mr-2 h-4 w-4 opacity-50" />
+                      <input placeholder="Search city..." value={citySearchTerm} onChange={(e) => setCitySearchTerm(e.target.value)} className="flex h-11 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground" />
+                    </div>
+                    <div className="max-h-72 overflow-y-auto p-1 bg-white">
+                      {uniqueCities.filter((city: string) => city.toLowerCase().includes(citySearchTerm.toLowerCase())).map((city: string) => (
+                        <div key={city} className={cn("relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none hover:bg-orange-50 hover:text-orange-600 transition-colors", (selectedCity === city || (city === "All Cities" && selectedCity === "all-cities")) ? "bg-orange-100 text-orange-700 font-semibold" : "text-gray-700")} onClick={() => { setSelectedCity(city === "All Cities" ? "all-cities" : city); setCityPopoverOpen(false); setCitySearchTerm(""); }}>
+                          <Check className={cn("mr-2 h-4 w-4", (selectedCity === city || (city === "All Cities" && selectedCity === "all-cities")) ? "opacity-100" : "opacity-0")} />
+                          {city}
+                        </div>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+          </div>
+
+          {/* Content */}
+          {status === "loading" && <div className="flex justify-center py-12"><Loader2 className="h-10 w-10 animate-spin text-orange-500" /></div>}
+          {status === "failed" && <div className="text-center py-12"><ServerCrash className="mx-auto h-12 w-12 text-red-500 mb-4" /><p className="text-gray-600">Failed to load products.</p></div>}
+          {status === "succeeded" && (
+            <>
+              {displayItems.length === 0 ? (
+                <div className="text-center py-12 bg-white rounded-xl border border-dashed"><Package className="mx-auto h-12 w-12 text-gray-300 mb-2" /><p className="text-gray-500">No products found.</p></div>
+              ) : (
+                <>
+                  {/* Desktop Carousel */}
+                  <div className="hidden md:block relative px-4">
+                    <Button variant="outline" size="icon" className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 rounded-full h-12 w-12 shadow-lg bg-white" onClick={() => scroll("left")}><ChevronLeft className="h-6 w-6 text-gray-700" /></Button>
+                    <div ref={scrollContainerRef} className="flex overflow-x-auto scroll-smooth py-6 -mx-4 px-4 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
+                      <div className="flex gap-6">
+                        {displayItems.map((item: any) => (
+                          item.type === "shop"
+                            ? <ShopCard key={item.id} seller={item.seller} productCount={item.products.length} products={item.products} isMobile={false} />
+                            : <ProductCard key={item.id} product={item.product} onInquiryClick={(p: any) => { setSelectedProduct(p); setIsModalOpen(true); }} isMobile={false} />
+                        ))}
+                      </div>
+                    </div>
+                    <Button variant="outline" size="icon" className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 rounded-full h-12 w-12 shadow-lg bg-white" onClick={() => scroll("right")}><ChevronRight className="h-6 w-6 text-gray-700" /></Button>
+                  </div>
+
+                  {/* Mobile Grid */}
+                  <div className="md:hidden">
+                    <div className="grid grid-cols-2 gap-3">
+                      <AnimatePresence mode="wait">
+                        {currentMobileItems.map((item: any) => (
+                          <motion.div key={item.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                            {item.type === "shop"
+                              ? <ShopCard seller={item.seller} productCount={item.products.length} products={item.products} isMobile={true} />
+                              : <ProductCard product={item.product} onInquiryClick={(p: any) => { setSelectedProduct(p); setIsModalOpen(true); }} isMobile={true} />}
+                          </motion.div>
+                        ))}
+                      </AnimatePresence>
+                    </div>
+                    {totalMobilePages > 1 && (
+                      <div className="flex justify-center items-center gap-2 mt-8">
+                        <Button variant="outline" size="sm" onClick={() => setMobilePage((p) => Math.max(1, p - 1))} disabled={mobilePage === 1} className="rounded-full w-8 h-8 p-0"><ChevronLeft className="w-4 h-4" /></Button>
+                        <span className="text-sm font-medium text-gray-600">Page {mobilePage} of {totalMobilePages}</span>
+                        <Button variant="outline" size="sm" onClick={() => setMobilePage((p) => Math.min(totalMobilePages, p + 1))} disabled={mobilePage === totalMobilePages} className="rounded-full w-8 h-8 p-0"><ChevronRight className="w-4 h-4" /></Button>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+
+      {isModalOpen && selectedProduct && (
+        <InquiryModal product={selectedProduct} onClose={() => setIsModalOpen(false)} />
+      )}
+    </>
+  );
+};
+
+export default SellersSection;
