@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 // pages/ApplicationPage.tsx
 
 import React, { useState, useEffect } from "react";
@@ -60,7 +60,8 @@ const ApplicationPage = () => {
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
 
-  const { jobTitle = "" } = location.state || {};
+  const searchParams = useSearchParams();
+  const jobTitle = searchParams?.get("jobTitle") || "";
 
   const { actionStatus, error, userInfo } = useSelector(
     (state: RootState) => state.user
