@@ -44,7 +44,7 @@ export default async function ArchitectProfilePage({ params }: { params: Promise
             </nav>
           </div>
         </div>
-        <ArchitectProfilePageClient architectId={resolvedParams.id} />
+<ArchitectProfilePageClient />
       </main>
 </>
   );
