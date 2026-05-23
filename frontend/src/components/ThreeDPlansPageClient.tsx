@@ -33,7 +33,7 @@ import { useWishlist } from "@/contexts/WishlistContext";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import house1 from "@/assets/house-1.jpg";
+
 import { fetchProducts } from "@/lib/features/products/productSlice";
 import { fetchAllApprovedPlans } from "@/lib/features/professional/professionalPlanSlice";
 import { fetchMyOrders } from "@/lib/features/orders/orderSlice";

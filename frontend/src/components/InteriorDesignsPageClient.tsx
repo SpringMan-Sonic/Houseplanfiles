@@ -35,7 +35,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { fetchProducts } from "@/lib/features/products/productSlice";
 import { fetchAllApprovedPlans } from "@/lib/features/professional/professionalPlanSlice";
 import { fetchMyOrders } from "@/lib/features/orders/orderSlice";
-import house3 from "@/assets/house-3.jpg";
+
 import useDebounce from "@/hooks/useDebounce";
 import { useCurrency } from "@/contexts/CurrencyContext"; // Currency Context जोड़ा गया
 import DisplayPrice from "@/components/DisplayPrice"; // DisplayPrice कंपोनेंट जोड़ा गया

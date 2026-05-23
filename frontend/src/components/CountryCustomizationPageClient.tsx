@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import houseImageForForm from "@/assets/house-form-image.jpg";
+
 
 const CountryCustomizationPage = () => {
   const { countryName } = useParams(); 
@@ -153,7 +153,7 @@ const CountryCustomizationPage = () => {
             {/* Right Side: Image */}
             <div className="w-full lg:w-1/2 hidden lg:block">
               <img
-                src={houseImageForForm}
+                src="/floorplan.jpg"
                 alt="Beautiful modern house"
                 className="w-full h-full object-cover rounded-xl"
               />
