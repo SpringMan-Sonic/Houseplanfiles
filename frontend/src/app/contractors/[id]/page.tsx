@@ -27,7 +27,7 @@ export default async function ContractorProfilePage({ params }: { params: Promis
   return (
     <>
 <main>
-        <ContractorProfilePageClient contractorId={resolvedParams.id} />
+<ContractorProfilePageClient />
       </main>
 </>
   );
