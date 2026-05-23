@@ -10,7 +10,7 @@ export default async function SellerShopPage({ params }: { params: Promise<{ sel
   return (
     <>
 <main>
-        <SellerStorePageClient sellerId={resolvedParams.sellerId} />
+        <SellerStorePageClient />
       </main>
 </>
   );
