@@ -4,8 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-50 border rounded animate-pulse" />,
+});
 
 import {
   Dialog,

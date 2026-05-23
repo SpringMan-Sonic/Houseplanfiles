@@ -571,17 +571,16 @@ const MultiRoleRegisterPage = () => {
             </div>
             <div>
               <Label htmlFor="businessCertification">
-                Business License / Certification Image*
+                Business License / Certification (Optional)
               </Label>
               <Input
                 id="businessCertification"
                 type="file"
                 accept="image/*,.pdf"
-                required
                 onChange={handleFileChange}
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Upload your business license or shop registration certificate
+                Upload your business license or shop registration certificate (can be added later)
               </p>
             </div>
             <div>

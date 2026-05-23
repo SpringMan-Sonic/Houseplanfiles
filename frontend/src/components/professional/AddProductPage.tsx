@@ -10,13 +10,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/lib/store";
 
 import { toast } from "sonner";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-50 border rounded animate-pulse" />,
+});
 import {
   createProduct,
   resetProductState,
   fetchProducts,
 } from "@/lib/features/products/productSlice";
+import { fetchCurrentUser } from "@/lib/features/users/userSlice";
 // UI Components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -284,7 +289,7 @@ const AddProductPage = () => {
   const { actionStatus, error, products } = useSelector(
     (state: RootState) => state.products
   );
-  const { userInfo } = useSelector((state: RootState) => state.user);
+  const { userInfo, profileLoading } = useSelector((state: RootState) => state.user);
 
   const {
     register,
@@ -308,6 +313,7 @@ const AddProductPage = () => {
   const [upSell, setUpSell] = useState<string[]>([]);
 
   useEffect(() => {
+    dispatch(fetchCurrentUser());
     dispatch(fetchProducts({ limit: 1000 }));
     return () => {
       dispatch(resetProductState());
@@ -392,6 +398,14 @@ const AddProductPage = () => {
       });
   };
 
+  if (profileLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 className="h-12 w-12 animate-spin text-orange-500" />
+      </div>
+    );
+  }
+
   if (userInfo && userInfo.role === "professional" && !userInfo.isApproved) {
     return (
       <div className="container mx-auto flex items-center justify-center min-h-[60vh]">
@@ -408,7 +422,7 @@ const AddProductPage = () => {
               once your account is approved.
             </p>
             <Button asChild>
-              <Link href="/professional/dashboard">Go to Dashboard</Link>
+              <Link href="/professional">Go to Dashboard</Link>
             </Button>
           </CardContent>
         </Card>

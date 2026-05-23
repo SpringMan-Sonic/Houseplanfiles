@@ -51,8 +51,11 @@ const AddSellerProductPage = () => {
   const { actionStatus, error } = useSelector(
     (state: RootState) => state.sellerProducts
   );
+  const { userInfo } = useSelector((state: RootState) => state.user);
 
-  const [categories, setCategories] = useState<ICategoryBrand[]>([]);
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+
+const [categories, setCategories] = useState<ICategoryBrand[]>([]);
   const [brands, setBrands] = useState<ICategoryBrand[]>([]);
 
   const {
@@ -67,11 +70,13 @@ const AddSellerProductPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = userInfo?.token;
+        const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
         const { data: categoriesData } = await axios.get(
-          "/api/seller/products/categories"
+          `${BACKEND_URL}/api/seller/products/categories`, config
         );
         const { data: brandsData } = await axios.get(
-          "/api/seller/products/brands"
+          `${BACKEND_URL}/api/seller/products/brands`, config
         );
         setCategories(Array.isArray(categoriesData) ? categoriesData : []);
         setBrands(Array.isArray(brandsData) ? brandsData : []);

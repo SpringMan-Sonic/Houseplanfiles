@@ -88,7 +88,8 @@ const DashboardPage = () => {
     { title: "Average Rating", value: stats.averageRating, icon: Star },
   ];
 
-  const professionLabel = userInfo?.profession || userInfo?.role || "Professional";
+  const rawLabel = userInfo?.profession || userInfo?.role || "Professional";
+  const professionLabel = rawLabel.charAt(0).toUpperCase() + rawLabel.slice(1);
 
   return (
     <div className="space-y-8">
@@ -131,7 +132,7 @@ const DashboardPage = () => {
               : "Upload your latest house plans and reach thousands of potential clients."}
           </p>
         </div>
-        <Link href={isProfessionalPartner ? "portfolio" : "add-product"}>
+        <Link href={isProfessionalPartner ? "/professional/portfolio" : "/professional/add-product"}>
           <Button className="btn-primary flex items-center gap-2 shrink-0">
             <PlusCircle size={18} />
             {isProfessionalPartner ? "Update Portfolio" : "Upload New Product"}

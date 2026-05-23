@@ -6,7 +6,7 @@ export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default function ProfessionalPage() {
   return (
-    <ProtectedRoute allowedRoles={["professional", "contractor", "architect"]}>
+    <ProtectedRoute allowedRoles={["professional", "contractor", "Contractor", "architect", "Architect"]}>
       <ProfessionalDashboardPage />
     </ProtectedRoute>
   );

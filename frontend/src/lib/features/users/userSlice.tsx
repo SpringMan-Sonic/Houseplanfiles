@@ -56,6 +56,7 @@ interface UserState {
   contractorListStatus: "idle" | "loading" | "succeeded" | "failed";
   architectListStatus: "idle" | "loading" | "succeeded" | "failed";
   actionStatus: "idle" | "loading" | "succeeded" | "failed";
+  profileLoading: boolean;
   error: any;
 }
 const initialState: UserState = {
@@ -74,6 +75,7 @@ const initialState: UserState = {
   contractorListStatus: "idle",
   architectListStatus: "idle",
   actionStatus: "idle",
+  profileLoading: false,
   error: null,
 };
 const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users`;
@@ -425,7 +427,10 @@ const userSlice = createSlice({
         state.userInfo = user;
         typeof window !== "undefined" && localStorage.setItem("userInfo", JSON.stringify(user));
       })
+      .addCase(fetchCurrentUser.pending, (state) => { state.profileLoading = true; })
+      .addCase(fetchCurrentUser.rejected, (state) => { state.profileLoading = false; })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.profileLoading = false;
         const user = { ...action.payload };
         if (user.role) user.role = user.role.toLowerCase();
         state.userInfo = user;
