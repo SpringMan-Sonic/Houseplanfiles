@@ -31,7 +31,7 @@ const BlogSidebar: React.FC = () => {
       dispatch(fetchProducts({}));
     }
     if (profListStatus === "idle") {
-      dispatch(fetchAllApprovedPlans());
+      dispatch(fetchAllApprovedPlans({}));
     }
   }, [dispatch, adminListStatus, profListStatus]);
 
