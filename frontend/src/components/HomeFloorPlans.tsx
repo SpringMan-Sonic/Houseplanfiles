@@ -1,4 +1,5 @@
 "use client";
+import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -296,10 +297,11 @@ const HomeFloorPlans = () => {
       <div className={`relative border-b ${isMobile ? "p-2" : "p-3 sm:p-4"}`}>
         <Link href={`/house-plans/${product.slug || product._id}`}>
           <img
-            src={product.mainImage}
+            src={optimizeCloudinaryUrl(product.mainImage, 400)}
             alt={product.displayName}
             className={`w-full object-contain group-hover:scale-105 transition-transform duration-500 ${isMobile ? "h-28" : "h-40 sm:h-56"}`}
-          />
+          /
+            loading="lazy">
         </Link>
         {product.isSale && (
           <div

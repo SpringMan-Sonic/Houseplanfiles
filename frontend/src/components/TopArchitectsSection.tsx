@@ -194,7 +194,8 @@ const ArchitectCard: FC<{
         src={architect.shopImageUrl ? getFileUrl(architect.shopImageUrl) : "/architect.png"} 
         alt="Banner" 
         className="absolute inset-0 w-full h-full object-cover"
-      />
+      /
+            loading="lazy">
       <div className="absolute inset-0 bg-black/10" />
       <div className="absolute top-3 right-3 flex flex-col gap-2 items-end">
         {architect.contractorType === "Premium" && (
@@ -360,7 +361,8 @@ const TopArchitectsSection: FC = () => {
           {/* --- HERO HEADER --- */}
           <div className="relative bg-gray-900 p-10 md:p-14 rounded-[2rem] overflow-hidden mb-12 shadow-2xl">
             <div className="absolute inset-0 opacity-20">
-               <img src="/architect_hero.webp" alt="Architectural Background" className="w-full h-full object-cover" />
+               <img src="/architect_hero.webp" alt="Architectural Background" className="w-full h-full object-cover" /
+            loading="lazy">
             </div>
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
               <div>
