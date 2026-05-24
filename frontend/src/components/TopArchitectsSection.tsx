@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import React, {
@@ -212,7 +213,18 @@ const ArchitectCard: FC<{
     <div className="px-5 pb-5 flex flex-col flex-grow relative">
       <div className="-mt-10 mb-3">
         <Avatar className="w-20 h-20 border-4 border-white shadow-md">
-          <AvatarImage src={architect.photoUrl} alt={architect.name} />
+          {architect.photoUrl ? (
+            <Image
+              src={architect.photoUrl}
+              alt={architect.name}
+              width={128}
+              height={128}
+              className="aspect-square h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <AvatarFallback>{architect.name?.charAt(0)}</AvatarFallback>
+          )}
           <AvatarFallback className="text-xl font-bold bg-orange-600 text-white">
             {architect.name?.charAt(0).toUpperCase()}
           </AvatarFallback>
