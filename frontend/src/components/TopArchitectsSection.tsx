@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 import React, {
   useState,
@@ -213,18 +213,7 @@ const ArchitectCard: FC<{
     <div className="px-5 pb-5 flex flex-col flex-grow relative">
       <div className="-mt-10 mb-3">
         <Avatar className="w-20 h-20 border-4 border-white shadow-md">
-          {architect.photoUrl ? (
-            <Image
-              src={architect.photoUrl}
-              alt={architect.name}
-              width={128}
-              height={128}
-              className="aspect-square h-full w-full object-cover"
-              loading="lazy"
-            />
-          ) : (
-            <AvatarFallback>{architect.name?.charAt(0)}</AvatarFallback>
-          )}
+          <AvatarImage src={architect.photoUrl} alt={architect.name} />
           <AvatarFallback className="text-xl font-bold bg-orange-600 text-white">
             {architect.name?.charAt(0).toUpperCase()}
           </AvatarFallback>
@@ -371,7 +360,7 @@ const TopArchitectsSection: FC = () => {
           {/* --- HERO HEADER --- */}
           <div className="relative bg-gray-900 p-10 md:p-14 rounded-[2rem] overflow-hidden mb-12 shadow-2xl">
             <div className="absolute inset-0 opacity-20">
-               <img src="/architect_hero.webp" alt="Architectural Background" className="w-full h-full object-cover" loading="lazy" />
+               <Image src="/architect_hero.webp" alt="Architectural Background" fill sizes="100vw" className="object-cover" loading="lazy" />
             </div>
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
               <div>

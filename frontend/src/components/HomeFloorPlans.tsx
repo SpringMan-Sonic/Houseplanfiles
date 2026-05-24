@@ -101,7 +101,7 @@ const HomeFloorPlans = () => {
   // ✅ FETCH ONLY FLOOR PLANS (NOT ELEVATIONS)
   useEffect(() => {
     const params = {
-      limit: 6,
+      limit: 12,
       sortBy: "newest",
       planCategory: "floor-plans", // ✅ Only floor plans
     };
