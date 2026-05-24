@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -93,10 +94,14 @@ const FeaturedPlansSection = () => {
             >
               <div className="relative overflow-hidden border-b border-border">
                 <Link href={`/house-plans/${plan.id}`}>
-                  <img
+                  <Image
                     src={plan.image}
                     alt={plan.title}
+                    width={600}
+                    height={450}
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="w-full h-auto object-cover aspect-[4/3]"
+                    loading="lazy"
                   />
                 </Link>
 

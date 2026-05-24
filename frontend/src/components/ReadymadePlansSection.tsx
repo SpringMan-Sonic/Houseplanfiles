@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 import Link from "next/link";
 import { motion } from "@/components/MotionWrapper";
@@ -84,10 +85,14 @@ const ReadymadePlansSection = () => {
                 className="group block relative rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[3/4] md:aspect-[3/4]"
               >
                 {/* Background Image */}
-                <img
-                  src={optimizeCloudinaryUrl(plan.image, 400)}
+                <Image
+                  src={plan.image}
                   alt={plan.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
 
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>

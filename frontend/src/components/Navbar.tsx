@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -122,13 +123,13 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-20">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center gap-2">
-                <img
+                <Image
                   src="/logo1.png"
                   alt="HousePlanFiles Logo"
-                  width="180"
-                  height="56"
+                  width={180}
+                  height={56}
                   className="h-14 w-auto object-contain"
-                  fetchPriority="high"
+                  priority
                 />
               </Link>
             </div>
@@ -273,7 +274,7 @@ const Navbar = () => {
               className="fixed top-0 right-0 bottom-0 z-[60] bg-white w-[85%] max-w-sm p-6 lg:hidden flex flex-col shadow-2xl"
             >
               <div className="flex justify-between items-center mb-8 flex-shrink-0">
-                <img src="/logo1.png" alt="Logo" width="120" height="40" className="h-10 w-auto" />
+                <Image src="/logo1.png" alt="Logo" width={120} height={40} className="h-10 w-auto" />
                 <button
                   onClick={() => setIsMenuOpen(false)}
                   className="p-2 bg-gray-100 rounded-full hover:bg-gray-200"

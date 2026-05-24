@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -127,16 +128,15 @@ const Hero = () => {
     <section className="relative h-[80vh] min-h-[550px] md:h-screen md:min-h-[700px] flex items-center justify-center text-white overflow-hidden">
       {/* Background Slider */}
       <div className="absolute inset-0">
-        <img
+        <Image
           key={currentSlide}
           src={slides[currentSlide].image}
           alt={slides[currentSlide].alt}
-          width={1920}
-          height={1080}
+          fill
+          priority={currentSlide === 0}
           loading={currentSlide === 0 ? "eager" : "lazy"}
-          fetchPriority={currentSlide === 0 ? "high" : "auto"}
-          decoding={currentSlide === 0 ? "sync" : "async"}
-          className="w-full h-full object-cover object-center transition-opacity duration-700"
+          sizes="100vw"
+          className="object-cover object-center transition-opacity duration-700"
           style={{ opacity: 1 }}
         />
         <div className="absolute inset-0 bg-black/60" />

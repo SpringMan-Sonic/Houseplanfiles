@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "@/components/MotionWrapper";
 
@@ -83,10 +84,12 @@ const CustomDesignSection = () => {
                 <div className="bg-card rounded-xl md:rounded-2xl shadow-sm hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 h-full flex flex-col">
                   {/* Image Section - Height kam ki mobile ke liye */}
                   <div className="relative overflow-hidden h-32 md:h-56 shrink-0">
-                    <img
+                    <Image
                       src={service.image}
                       alt={service.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors duration-300 group-hover:bg-black/30">
                       {/* Icon Circle - Size adjust kiya mobile ke liye */}
