@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     canonical: "https://www.houseplanfiles.com",
   },
   verification: {
-    google: "",
+    google: "1boqz5_cvkNxWsABlYzA9OW8lXrR_ZttKSxmnT0jsUU",
   },
 };
 
