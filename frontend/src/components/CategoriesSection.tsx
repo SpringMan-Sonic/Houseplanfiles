@@ -19,7 +19,7 @@ const categories = [
   {
     name: "Modern Home Design",
     image:
-      "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Home,
     color: "from-blue-500 to-cyan-500",
     href: "/products?category=Modern Home Design",
@@ -27,7 +27,7 @@ const categories = [
   {
     name: "Duplex House Plans",
     image:
-      "https://images.pexels.com/photos/2089698/pexels-photo-2089698.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2089698/pexels-photo-2089698.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Building2,
     color: "from-purple-500 to-pink-500",
     href: "/products?category=Duplex House Plans",
@@ -35,7 +35,7 @@ const categories = [
   {
     name: "Single Storey House Plan",
     image:
-      "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Home,
     color: "from-green-500 to-emerald-500",
     href: "/products?category=Single Storey House Plan",
@@ -43,7 +43,7 @@ const categories = [
   {
     name: "Bungalow / Villa House Plans",
     image:
-      "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Castle,
     color: "from-orange-500 to-red-500",
     href: "/products?category=Bungalow / Villa House Plans",
@@ -51,7 +51,7 @@ const categories = [
   {
     name: "Apartment / Flat Plans",
     image:
-      "https://images.pexels.com/photos/221540/pexels-photo-221540.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/221540/pexels-photo-221540.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Building2,
     color: "from-indigo-500 to-purple-500",
     href: "/products?category=Apartment / Flat Plans",
@@ -59,7 +59,7 @@ const categories = [
   {
     name: "Farmhouse",
     image:
-      "https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: TreePine,
     color: "from-teal-500 to-green-500",
     href: "/products?category=Farmhouse",
@@ -67,7 +67,7 @@ const categories = [
   {
     name: "Cottage Plans",
     image:
-      "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Home,
     color: "from-yellow-500 to-orange-500",
     href: "/products?category=Cottage Plans",
@@ -75,7 +75,7 @@ const categories = [
   {
     name: "Row House / Twin House Plans",
     image:
-      "https://images.pexels.com/photos/2119714/pexels-photo-2119714.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2119714/pexels-photo-2119714.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Building2,
     color: "from-pink-500 to-rose-500",
     href: "/products?category=Row House / Twin House Plans",
@@ -83,7 +83,7 @@ const categories = [
   {
     name: "Village House Plans",
     image:
-      "https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Home,
     color: "from-lime-500 to-green-500",
     href: "/products?category=Village House Plans",
@@ -91,7 +91,7 @@ const categories = [
   {
     name: "Contemporary / Modern House Plans",
     image:
-      "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Building2,
     color: "from-cyan-500 to-blue-500",
     href: "/products?category=Contemporary / Modern House Plans",
@@ -99,7 +99,7 @@ const categories = [
   {
     name: "Colonial / Heritage House Plans",
     image:
-      "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Castle,
     color: "from-amber-500 to-orange-500",
     href: "/products?category=Colonial / Heritage House Plans",
@@ -107,7 +107,7 @@ const categories = [
   {
     name: "Classic House Plan",
     image:
-      "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Home,
     color: "from-red-500 to-pink-500",
     href: "/products?category=Classic House Plan",
@@ -115,7 +115,7 @@ const categories = [
   {
     name: "Kerala House Plans",
     image:
-      "https://images.pexels.com/photos/259593/pexels-photo-259593.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/259593/pexels-photo-259593.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Home,
     color: "from-emerald-500 to-teal-500",
     href: "/products?category=Kerala House Plans",
@@ -123,7 +123,7 @@ const categories = [
   {
     name: "Kashmiri House Plan",
     image:
-      "https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Home,
     color: "from-blue-500 to-indigo-500",
     href: "/products?category=Kashmiri House Plan",
@@ -131,7 +131,7 @@ const categories = [
   {
     name: "Marriage Garden",
     image:
-      "https://images.pexels.com/photos/1395964/pexels-photo-1395964.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1395964/pexels-photo-1395964.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: TreePine,
     color: "from-green-500 to-lime-500",
     href: "/products?category=Marriage Garden",
@@ -139,7 +139,7 @@ const categories = [
   {
     name: "Hospitals",
     image:
-      "https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Building2,
     color: "from-red-500 to-rose-500",
     href: "/products?category=Hospitals",
@@ -147,7 +147,7 @@ const categories = [
   {
     name: "Shops and Showrooms",
     image:
-      "https://images.pexels.com/photos/1125136/pexels-photo-1125136.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1125136/pexels-photo-1125136.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Warehouse,
     color: "from-purple-500 to-violet-500",
     href: "/products?category=Shops and Showrooms",
@@ -155,7 +155,7 @@ const categories = [
   {
     name: "Highway Resorts and Hotels",
     image:
-      "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Hotel,
     color: "from-orange-500 to-amber-500",
     href: "/products?category=Highway Resorts and Hotels",
@@ -163,7 +163,7 @@ const categories = [
   {
     name: "Schools and Colleges Plans",
     image:
-      "https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: School,
     color: "from-indigo-500 to-blue-500",
     href: "/products?category=Schools and Colleges Plans",
@@ -171,7 +171,7 @@ const categories = [
   {
     name: "Temple & Mosque",
     image:
-      "https://images.pexels.com/photos/3408354/pexels-photo-3408354.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3408354/pexels-photo-3408354.jpeg?auto=compress&cs=tinysrgb&w=300",
     icon: Church,
     color: "from-yellow-500 to-orange-500",
     href: "/products?category=Temple & Mosque",
