@@ -98,7 +98,7 @@ const HomeElevations = () => {
   // ✅ FETCH ONLY ELEVATIONS (3D PLANS)
   useEffect(() => {
     const params = {
-      limit: 12,
+      limit: 6,
       sortBy: "newest",
       planCategory: "elevations", // ✅ Only elevations
     };
