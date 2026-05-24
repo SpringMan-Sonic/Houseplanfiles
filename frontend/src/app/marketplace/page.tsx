@@ -3,8 +3,8 @@ import MarketPlaceClient from "@/components/MarketPlaceClient";
 export const metadata: Metadata = {
   title: "Marketplace | Building Materials & Construction Products | HousePlanFiles",
   description: "Browse building materials, construction products and home improvement items from verified sellers on HousePlanFiles marketplace.",
-  openGraph: { title: "Marketplace | HousePlanFiles", description: "Building materials and construction products from verified sellers.", url: "https://www.houseplanfiles.com/marketplace", images: [{ url: "/marketplace.png", width: 1200, height: 630, alt: "Building Materials Marketplace India" }] },
-  twitter: { card: "summary_large_image", title: "Marketplace | HousePlanFiles", description: "Building materials from verified sellers.", images: ["/marketplace.png"] },
+  openGraph: { title: "Marketplace | HousePlanFiles", description: "Building materials and construction products from verified sellers.", url: "https://www.houseplanfiles.com/marketplace", images: [{ url: "/marketplace.webp", width: 1200, height: 630, alt: "Building Materials Marketplace India" }] },
+  twitter: { card: "summary_large_image", title: "Marketplace | HousePlanFiles", description: "Building materials from verified sellers.", images: ["/marketplace.webp"] },
   alternates: { canonical: "https://www.houseplanfiles.com/marketplace" },
 };
 const schema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "https://www.houseplanfiles.com" }, { "@type": "ListItem", position: 2, name: "Marketplace", item: "https://www.houseplanfiles.com/marketplace" }] };

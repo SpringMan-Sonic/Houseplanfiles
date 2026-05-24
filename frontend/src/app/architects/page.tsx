@@ -10,9 +10,9 @@ export const metadata: Metadata = {
     title: "Hire Top Architects & Interior Designers in India | HousePlanFiles",
     description: "Find verified architects and interior designers across India. View portfolios and get in touch.",
     url: "https://www.houseplanfiles.com/architects",
-    images: [{ url: "/architect_hero.png", width: 1200, height: 630, alt: "Architects and Interior Designers India" }],
+    images: [{ url: "/architect_hero.webp", width: 1200, height: 630, alt: "Architects and Interior Designers India" }],
   },
-  twitter: { card: "summary_large_image", title: "Hire Top Architects & Interior Designers in India | HousePlanFiles", images: ["/architect_hero.png"] },
+  twitter: { card: "summary_large_image", title: "Hire Top Architects & Interior Designers in India | HousePlanFiles", images: ["/architect_hero.webp"] },
   alternates: { canonical: "https://www.houseplanfiles.com/architects" },
 };
 

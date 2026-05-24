@@ -360,7 +360,7 @@ const TopArchitectsSection: FC = () => {
           {/* --- HERO HEADER --- */}
           <div className="relative bg-gray-900 p-10 md:p-14 rounded-[2rem] overflow-hidden mb-12 shadow-2xl">
             <div className="absolute inset-0 opacity-20">
-               <img src="/architect_hero.png" alt="Architectural Background" className="w-full h-full object-cover" />
+               <img src="/architect_hero.webp" alt="Architectural Background" className="w-full h-full object-cover" />
             </div>
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
               <div>

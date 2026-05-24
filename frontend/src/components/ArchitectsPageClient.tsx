@@ -175,7 +175,7 @@ const ArchitectsPage: FC = () => {
       {/* Hero Section */}
       <div className="relative bg-slate-900 py-12 sm:py-20 overflow-hidden w-full">
         <div className="absolute inset-0">
-          <img src="/architect_hero.png" alt="Architects Background" className="w-full h-full object-cover opacity-30" />
+          <img src="/architect_hero.webp" alt="Architects Background" className="w-full h-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -158,7 +158,7 @@ const ArchitectProfilePage = ({ architectId }: ArchitectProfilePageClientProps =
         <div className="relative bg-gray-900 py-12 sm:pt-16 sm:pb-20 overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src={getFileUrl(architect.coverPhotoUrl) || "/architect_hero.png"}
+              src={getFileUrl(architect.coverPhotoUrl) || "/architect_hero.webp"}
               alt="Cover"
               className="w-full h-full object-cover opacity-20"
             />

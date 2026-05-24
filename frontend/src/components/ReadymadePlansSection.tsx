@@ -22,7 +22,7 @@ const planTypes = [
   {
     name: "Floor Plan + 3D", // Thoda short naam kiya mobile ke liye
     icon: Building2,
-    image: "/3d.jpg",
+    image: "/3d.webp",
     href: "/3d-plans",
     bgColor: "bg-purple-100",
     iconColor: "text-purple-500",
@@ -30,7 +30,7 @@ const planTypes = [
   {
     name: "Interior Designs",
     icon: Sofa,
-    image: "/c3.jpeg",
+    image: "/c3.webp",
     href: "/interior-designs",
     bgColor: "bg-teal-100",
     iconColor: "text-teal-500",

@@ -20,10 +20,10 @@ import {
 } from "@/components/ui/select";
 
 const slides = [
-  { image: "/b11.jpg", alt: "Modern white house with a lawn" },
-  { image: "/b12.jpg", alt: "Classic house with a beautiful garden" },
-  { image: "/b13.jpg", alt: "Luxurious apartment building exterior" },
-  { image: "/b14.jpg", alt: "Luxurious apartment building interior" },
+  { image: "/b11.webp", alt: "Modern white house with a lawn" },
+  { image: "/b12.webp", alt: "Classic house with a beautiful garden" },
+  { image: "/b13.webp", alt: "Luxurious apartment building exterior" },
+  { image: "/b14.webp", alt: "Luxurious apartment building interior" },
 ];
 
 const CATEGORIES = [
@@ -134,7 +134,8 @@ const Hero = () => {
           width={1920}
           height={1080}
           loading={currentSlide === 0 ? "eager" : "lazy"}
-          decoding="async"
+          fetchPriority={currentSlide === 0 ? "high" : "auto"}
+          decoding={currentSlide === 0 ? "sync" : "async"}
           className="w-full h-full object-cover object-center transition-opacity duration-700"
           style={{ opacity: 1 }}
         />
