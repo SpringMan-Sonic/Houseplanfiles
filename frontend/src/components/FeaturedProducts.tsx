@@ -341,9 +341,7 @@ const FeaturedProducts = () => {
                         <img
                           src={product.mainImage}
                           alt={product.displayName}
-                          className="w-full h-56 object-contain group-hover:scale-105 transition-transform"
-                        /
-            loading="lazy">
+                          className="w-full h-56 object-contain group-hover:scale-105 transition-transform" loading="lazy" />
                       </Link>
                       {product.isSale && (
                         <div className="absolute top-4 left-4 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md z-10">

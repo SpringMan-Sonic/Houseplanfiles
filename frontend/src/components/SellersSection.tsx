@@ -257,8 +257,7 @@ const SellersSection = () => {
         {/* Hero Banner */}
         <div className="relative py-16 sm:py-24 overflow-hidden">
           <div className="absolute inset-0">
-            <img src="/marketplace.webp" alt="Marketplace" className="w-full h-full object-cover" /
-            loading="lazy">
+            <img src="/marketplace.webp" alt="Marketplace" className="w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-gray-900/30" />
           </div>
           <div className="relative max-w-7xl mx-auto px-4 text-center z-10">

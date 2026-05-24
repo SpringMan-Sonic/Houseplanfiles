@@ -299,9 +299,7 @@ const HomeFloorPlans = () => {
           <img
             src={optimizeCloudinaryUrl(product.mainImage, 400)}
             alt={product.displayName}
-            className={`w-full object-contain group-hover:scale-105 transition-transform duration-500 ${isMobile ? "h-28" : "h-40 sm:h-56"}`}
-          /
-            loading="lazy">
+            className={`w-full object-contain group-hover:scale-105 transition-transform duration-500 ${isMobile ? "h-28" : "h-40 sm:h-56"}`} loading="lazy" />
         </Link>
         {product.isSale && (
           <div
