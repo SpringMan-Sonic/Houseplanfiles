@@ -165,6 +165,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" href="/favicon2.ico" type="image/x-icon" />
         <meta name="theme-color" content="#f97316" />
+
+        {/* FIX: preconnect to the two biggest external origins for LCP savings */}
+        <link rel="preconnect" href="https://houseplanfiles1.s3.eu-north-1.amazonaws.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.kraya-ai.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://images.pexels.com" crossOrigin="anonymous" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

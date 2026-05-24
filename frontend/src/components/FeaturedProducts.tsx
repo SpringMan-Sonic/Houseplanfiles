@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
+import { getOptimizedImageUrl } from "@/lib/cloudinary";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/lib/store";
@@ -338,10 +340,15 @@ const FeaturedProducts = () => {
                         href={`/house-plans/${product.slug || product._id || "/house-plans"}`}
                         className="block p-4"
                       >
-                        <img
-                          src={product.mainImage}
-                          alt={product.displayName}
-                          className="w-full h-56 object-contain group-hover:scale-105 transition-transform" loading="lazy" />
+                        <Image
+                          src={getOptimizedImageUrl(product.mainImage, 400)}
+                          alt={product.displayName || "House Plan"}
+                          width={400}
+                          height={224}
+                          className="w-full h-56 object-contain group-hover:scale-105 transition-transform"
+                          loading="lazy"
+                          sizes="(max-width: 768px) 85vw, 320px"
+                        />
                       </Link>
                       {product.isSale && (
                         <div className="absolute top-4 left-4 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md z-10">

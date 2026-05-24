@@ -1,6 +1,8 @@
 "use client";
 import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 import Link from "next/link";
+import Image from "next/image";
+import { getOptimizedImageUrl } from "@/lib/cloudinary";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -296,10 +298,15 @@ const HomeFloorPlans = () => {
     >
       <div className={`relative border-b ${isMobile ? "p-2" : "p-3 sm:p-4"}`}>
         <Link href={`/house-plans/${product.slug || product._id}`}>
-          <img
-            src={optimizeCloudinaryUrl(product.mainImage, 400)}
-            alt={product.displayName}
-            className={`w-full object-contain group-hover:scale-105 transition-transform duration-500 ${isMobile ? "h-28" : "h-40 sm:h-56"}`} loading="lazy" />
+          <Image
+            src={getOptimizedImageUrl(product.mainImage, 400)}
+            alt={product.displayName || "House Plan"}
+            width={400}
+            height={isMobile ? 112 : 224}
+            className={`w-full object-contain group-hover:scale-105 transition-transform duration-500 ${isMobile ? "h-28" : "h-40 sm:h-56"}`}
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 320px"
+          />
         </Link>
         {product.isSale && (
           <div

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { getOptimizedImageUrl } from "@/lib/cloudinary";
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -104,11 +106,14 @@ const InquiryModal = ({ product, onClose }: { product: any; onClose: () => void 
 const ProductCard = ({ product, onInquiryClick, isMobile = false }: any) => (
   <div className={`bg-white rounded-xl flex flex-col group transition-all duration-300 border border-gray-100 hover:border-orange-500 hover:shadow-xl hover:-translate-y-1 ${isMobile ? "w-full p-2 shadow-sm" : "w-80 flex-shrink-0 snap-start p-4 shadow-md"}`}>
     <div className="relative overflow-hidden rounded-lg bg-gray-100">
-      <img
-        src={product.image || "/floorplan.jpg"}
-        alt={product.name}
+      <Image
+        src={getOptimizedImageUrl(product.image || "/floorplan.jpg", 400)}
+        alt={product.name || "Seller Product"}
+        width={400}
+        height={isMobile ? 128 : 192}
         className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${isMobile ? "h-32" : "h-48"}`}
         loading="lazy"
+        sizes="(max-width: 768px) 100vw, 320px"
       />
       <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] sm:text-xs font-semibold text-gray-700 flex items-center gap-1 shadow-sm">
         <MapPin size={10} className="text-orange-500" /> {product.city}
@@ -152,7 +157,7 @@ const ShopCard = ({ seller, productCount, products, isMobile = false }: any) => 
       className={`group bg-white rounded-xl flex flex-col transition-all duration-300 border border-gray-100 hover:border-orange-500 hover:shadow-xl hover:-translate-y-1 cursor-pointer overflow-hidden ${isMobile ? "w-full p-2 shadow-sm" : "w-80 flex-shrink-0 snap-start p-4 shadow-md"}`}
     >
       <div className={`relative overflow-hidden rounded-lg bg-gray-100 ${isMobile ? "h-32" : "h-48"}`}>
-        <img src={displayImage} alt={seller.businessName} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+        <Image src={getOptimizedImageUrl(displayImage, 400)} alt={seller.businessName || "Seller"} width={400} height={192} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" sizes="(max-width: 768px) 100vw, 320px" />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
         <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] sm:text-xs font-semibold text-gray-700 flex items-center gap-1 shadow-sm z-10">
           <MapPin size={10} className="text-orange-500" /> {products[0]?.city || "India"}

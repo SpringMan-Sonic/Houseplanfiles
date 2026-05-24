@@ -1,22 +1,42 @@
+# *
 User-agent: *
 Allow: /
-
-# Block private/functional pages from indexing
 Disallow: /admin/
-Disallow: /admin
+Disallow: /dashboard/
+Disallow: /professional/
+Disallow: /seller/
 Disallow: /cart
 Disallow: /checkout
-Disallow: /dashboard
 Disallow: /login
 Disallow: /register
-Disallow: /seller/
-Disallow: /seller
-Disallow: /professional/
-Disallow: /professional
 Disallow: /forgot-password
 Disallow: /reset-password/
 Disallow: /order-success/
-Disallow: /download
+Disallow: /api/
 Disallow: /thank-you
+Disallow: /download/
+Disallow: /apply/
+Disallow: /booking-form
+Disallow: /premium-booking-form
+Disallow: /corporate-inquiry/
 
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /professional/
+Disallow: /seller/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /download/
+
+# Googlebot-Image
+User-agent: Googlebot-Image
+Allow: /
+
+# Host
+Host: https://www.houseplanfiles.com
+
+# Sitemaps
 Sitemap: https://www.houseplanfiles.com/sitemap.xml

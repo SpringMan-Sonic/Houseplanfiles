@@ -14,9 +14,16 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.pexels.com', pathname: '/**' },
       { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
       { protocol: 'http', hostname: 'localhost', pathname: '/**' },
+      // FIX: Added S3 hostname so next/image can optimize S3 images
+      { protocol: 'https', hostname: 'houseplanfiles1.s3.eu-north-1.amazonaws.com', pathname: '/**' },
+      { protocol: 'https', hostname: '*.s3.*.amazonaws.com', pathname: '/**' },
     ],
     formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 60,
+    // FIX: Increased from 60s to 1 year for static product images
+    minimumCacheTTL: 31536000,
+    // FIX: Limit device sizes to reduce redundant image variants
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [64, 128, 256, 384],
   },
 
   async redirects() {
@@ -40,6 +47,20 @@ const nextConfig = {
         source: '/3d-plans',
         headers: [
           { key: 'Cache-Control', value: 'no-store' },
+        ],
+      },
+      // FIX: Long cache for static assets
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      // FIX: Long cache for public images/fonts
+      {
+        source: '/(.*\\.(?:png|jpg|jpeg|webp|avif|ico|svg|woff|woff2))',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
       {
