@@ -766,10 +766,10 @@ const ProductDetailContent = ({ product }: { product: any }) => {
 
             <div className="lg:col-span-2 space-y-6">
               <div>
-                <h1 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-2">
+                <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-2">
                   {" "}
                   {productName}{" "}
-                </h1>
+                </h2>
                 <div className="flex items-center gap-4 mb-4">
                   <StarRating
                     rating={displayData.rating || 0}
